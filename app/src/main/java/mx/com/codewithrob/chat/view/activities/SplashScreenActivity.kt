@@ -34,6 +34,21 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreen.View {
         Snackbar.make(splashLayout, message, Snackbar.LENGTH_SHORT).show()
     }
 
+    override fun showMessage(message: String) {
+        Snackbar.make(splashLayout, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun showErrorMessage(err: Int) {
+        val snackbar: Snackbar = Snackbar.make(splashLayout, err, Snackbar.LENGTH_SHORT)
+        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
+        snackbar.show()    }
+
+    override fun showErrorMessage(err: String) {
+        val snackbar: Snackbar = Snackbar.make(splashLayout, err, Snackbar.LENGTH_SHORT)
+        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
+        snackbar.show()
+    }
+
     override fun navigateToLoginActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()

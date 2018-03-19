@@ -7,13 +7,7 @@ import com.google.firebase.auth.AuthCredential
 
 interface Login {
 
-    interface View {
-        fun showProgressBar()
-        fun hideProgressBar()
-        fun showErrorMessage(message: Int)
-        fun showErrorMessage(message: String)
-        fun showMessage(message: String)
-        fun showMessage(message: Int)
+    interface View  : BaseView {
         fun navigateToMainActivity()
         fun getActivity() : AppCompatActivity
     }

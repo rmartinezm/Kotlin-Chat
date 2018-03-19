@@ -47,14 +47,14 @@ class LoginActivity : AppCompatActivity(), Login.View {
         finish()
     }
 
-    override fun showErrorMessage(message: Int) {
-        val snackbar: Snackbar = Snackbar.make(loginLayout, message, Snackbar.LENGTH_SHORT)
+    override fun showErrorMessage(err: Int) {
+        val snackbar: Snackbar = Snackbar.make(loginLayout, err, Snackbar.LENGTH_SHORT)
         snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
         snackbar.show()
     }
 
-    override fun showErrorMessage(message: String) {
-        val snackbar: Snackbar = Snackbar.make(loginLayout, message, Snackbar.LENGTH_SHORT)
+    override fun showErrorMessage(err: String) {
+        val snackbar: Snackbar = Snackbar.make(loginLayout, err, Snackbar.LENGTH_SHORT)
         snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
         snackbar.show()
     }

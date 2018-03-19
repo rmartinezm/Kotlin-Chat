@@ -2,10 +2,7 @@ package mx.com.codewithrob.chat.interfaces
 
 interface  SplashScreen {
 
-    interface View {
-        fun showProgressBar()
-        fun hideProgressBar()
-        fun showMessage(message: Int)
+    interface View : BaseView {
         fun navigateToLoginActivity()
         fun navigateToMainActivity()
     }
