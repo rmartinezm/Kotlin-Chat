@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Chat</string>
+    <string name="facebook_app_id">1791158624523839</string>
+    <string name="fb_login_protocol_scheme">fb1791158624523839</string>
+    <string name="loginError">An error occurred while trying to log in</string>
+    <string name="loginCancel">Canceled session initiation</string>
+    <string name="loginSuccessful">Successful login</string>
 </resources>
