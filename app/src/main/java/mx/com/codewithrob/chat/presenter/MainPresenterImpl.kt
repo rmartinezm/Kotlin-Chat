@@ -15,11 +15,16 @@ class MainPresenterImpl(private val view: Main.View) : Main.Presenter {
     }
 
     override fun onViewInit() {
+        view.showProgressBar()
         interactor.loadCurrentUser(object : Main.UserLoadedCallback {
             override fun onComplete(user: User?) {
                 this@MainPresenterImpl.user = user
-                if (user != null) view.setUserInformation(user)
+                if (user != null) {
+                    view.setUserInformation(user)
+                    view.navigateToChatroomActivity()
+                }
                 else view.showErrorMessage(R.string.load_information_error)
+                view.hideProgressBar()
             }
         })
     }

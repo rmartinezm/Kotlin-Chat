@@ -1,5 +1,6 @@
 package mx.com.codewithrob.chat.view.activities
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity(), Main.View {
     }
 
     override fun navigateToChatroomActivity() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        startActivity(Intent(this, ChatroomActivity::class.java))
     }
 
     override fun showMessage(message: Int) {
