@@ -10,15 +10,12 @@ interface Main {
     }
 
     interface Presenter {
+        fun updateUser(user: User?)
         fun onViewInit()
     }
 
     interface Interactor {
-        fun loadCurrentUser(callback: UserLoadedCallback)
-    }
-
-    interface UserLoadedCallback {
-        fun onComplete(user: User?)
+        fun loadCurrentUser()
     }
 
 }

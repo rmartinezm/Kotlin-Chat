@@ -2,9 +2,11 @@
     <string name="app_name">Chat</string>
     <string name="facebook_app_id">1791158624523839</string>
     <string name="fb_login_protocol_scheme">fb1791158624523839</string>
-    <string name="loginError">An error occurred while trying to log in</string>
-    <string name="loginCancel">Canceled session initiation</string>
-    <string name="loginSuccessful">Successful login</string>
-    <string name="load_information_error">An error occurred while trying to read your information</string>
+    <string name="login_error">An error occurred while trying to log in</string>
+    <string name="login_cancel">Canceled session initiation</string>
+    <string name="login_success">Successful login</string>
+    <string name="database_error">An error occurred while trying to read your information</string>
     <string name="hint_message_input">Write a message</string>
+    <string name="default_error">An error has occurred, try to restart the application</string>
+    <string name="internet_error">There was an interruption due to the internet connection</string>
 </resources>

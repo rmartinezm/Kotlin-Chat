@@ -6,7 +6,9 @@ import android.support.design.widget.Snackbar
 import android.view.View
 import mx.com.codewithrob.chat.R
 import mx.com.codewithrob.chat.interfaces.Chatroom
+import mx.com.codewithrob.chat.model.enums.Message
 import kotlinx.android.synthetic.main.activity_chatroom.*
+import mx.com.codewithrob.chat.model.clases.ChatMessage
 import mx.com.codewithrob.chat.presenter.ChatroomPresenterImpl
 
 class ChatroomActivity : AppCompatActivity(), Chatroom.View {
@@ -17,6 +19,25 @@ class ChatroomActivity : AppCompatActivity(), Chatroom.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chatroom)
         presenter = ChatroomPresenterImpl(this)
+
+        presenter.putChatMessages(intent.extras.getString("channnel", null))
+    }
+
+    override fun showMessage(message: Message, err: Boolean) {
+        val snackbar: Snackbar? =  when(message){
+            Message.INTERNET_ERROR -> Snackbar.make(chatroomLayout, R.string.internet_error, Snackbar.LENGTH_SHORT)
+            else -> null
+        }
+        if (err) snackbar?.view?.setBackgroundColor(resources.getColor(R.color.errorColor))
+        snackbar?.show()
+    }
+
+    override fun updateMessagesList(list: List<ChatMessage>) {
+        //TODO("not implemented")
+    }
+
+    override fun addNewMessage(message: ChatMessage) {
+        TODO("not implemented")
     }
 
     override fun showFileTypeSelector() {
@@ -35,23 +56,4 @@ class ChatroomActivity : AppCompatActivity(), Chatroom.View {
         chatroomProgressbar.visibility = View.INVISIBLE
     }
 
-    override fun showMessage(message: Int) {
-        Snackbar.make(chatroomLayout, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun showMessage(message: String) {
-        Snackbar.make(chatroomLayout, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun showErrorMessage(err: Int) {
-        val snackbar: Snackbar = Snackbar.make(chatroomLayout, err, Snackbar.LENGTH_SHORT)
-        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
-        snackbar.show()
-    }
-
-    override fun showErrorMessage(err: String) {
-        val snackbar: Snackbar = Snackbar.make(chatroomLayout, err, Snackbar.LENGTH_SHORT)
-        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
-        snackbar.show()
-    }
 }

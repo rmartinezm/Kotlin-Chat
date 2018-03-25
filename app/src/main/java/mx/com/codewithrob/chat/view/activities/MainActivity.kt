@@ -10,6 +10,7 @@ import mx.com.codewithrob.chat.R
 import kotlinx.android.synthetic.main.activity_main.*
 import mx.com.codewithrob.chat.interfaces.Main
 import mx.com.codewithrob.chat.model.clases.User
+import mx.com.codewithrob.chat.model.enums.Message
 import mx.com.codewithrob.chat.presenter.MainPresenterImpl
 
 class MainActivity : AppCompatActivity(), Main.View {
@@ -40,23 +41,14 @@ class MainActivity : AppCompatActivity(), Main.View {
         startActivity(Intent(this, ChatroomActivity::class.java))
     }
 
-    override fun showMessage(message: Int) {
-        Snackbar.make(mainLayout, message, Snackbar.LENGTH_SHORT).show()
+    override fun showMessage(message: Message, err: Boolean) {
+        val snackbar: Snackbar? = when(message){
+            Message.DEFAULT_ERROR -> Snackbar.make(mainLayout, R.string.default_error, Snackbar.LENGTH_SHORT)
+            Message.DATABASE_ERROR -> Snackbar.make(mainLayout, R.string.database_error, Snackbar.LENGTH_SHORT)
+            else -> null
+        }
+        if (err) snackbar?.view?.setBackgroundColor(resources.getColor(R.color.errorColor))
+        snackbar?.show()
     }
 
-    override fun showMessage(message: String) {
-        Snackbar.make(mainLayout, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun showErrorMessage(err: Int) {
-        val snackbar: Snackbar = Snackbar.make(mainLayout, err, Snackbar.LENGTH_SHORT)
-        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
-        snackbar.show()
-    }
-
-    override fun showErrorMessage(err: String) {
-        val snackbar: Snackbar = Snackbar.make(mainLayout, err, Snackbar.LENGTH_SHORT)
-        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
-        snackbar.show()
-    }
 }

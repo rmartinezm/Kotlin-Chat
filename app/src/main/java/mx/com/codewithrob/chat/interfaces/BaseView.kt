@@ -1,12 +1,11 @@
 package mx.com.codewithrob.chat.interfaces
 
+import mx.com.codewithrob.chat.model.enums.Message
+
 interface BaseView {
 
     fun showProgressBar()
     fun hideProgressBar()
-    fun showMessage(message: Int)
-    fun showMessage(message: String)
-    fun showErrorMessage(err: Int)
-    fun showErrorMessage(err: String)
+    fun showMessage(message: Message, err:Boolean = false)
 
 }

@@ -9,14 +9,15 @@ import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FacebookAuthProvider
-import mx.com.codewithrob.chat.R
 import mx.com.codewithrob.chat.interfaces.Login
+import mx.com.codewithrob.chat.model.enums.Message
 import mx.com.codewithrob.chat.model.interactor.LoginInteractorImpl
 
 class LoginPresenterImpl(private val view: Login.View) :
         Login.Presenter, FacebookCallback<LoginResult> {
 
     private val TAG: String = "LOGIN: "
+
     private val interactor: Login.Interactor
     private val callbackManager: CallbackManager
 
@@ -33,13 +34,14 @@ class LoginPresenterImpl(private val view: Login.View) :
         callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun loginSuccessfull() {
+    override fun loginSuccess() {
         view.navigateToMainActivity()
     }
 
-    override fun loginError(err: String) {
+    override fun loginError(err: String?) {
         view.hideProgressBar()
-        view.showErrorMessage(err)
+        Log.e(TAG, err)
+        view.showMessage(Message.LOGIN_ERROR, true)
     }
 
     override fun onSuccess(result: LoginResult) {
@@ -50,12 +52,11 @@ class LoginPresenterImpl(private val view: Login.View) :
 
     override fun onError(error: FacebookException?) {
         view.hideProgressBar()
-        view.showErrorMessage(R.string.loginError)
-        Log.e(TAG, error.toString())
+        view.showMessage(Message.LOGIN_ERROR, true)
     }
 
     override fun onCancel() {
         view.hideProgressBar()
-        view.showMessage(R.string.loginCancel)
+        view.showMessage(Message.LOGIN_CANCEL)
     }
 }

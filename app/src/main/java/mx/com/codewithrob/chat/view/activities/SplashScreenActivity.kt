@@ -10,6 +10,7 @@ import mx.com.codewithrob.chat.R
 import mx.com.codewithrob.chat.interfaces.SplashScreen
 import mx.com.codewithrob.chat.presenter.SplashScreenPresenterImpl
 import kotlinx.android.synthetic.main.activity_splash_screen.*
+import mx.com.codewithrob.chat.model.enums.Message
 
 class SplashScreenActivity : AppCompatActivity(), SplashScreen.View {
 
@@ -30,23 +31,13 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreen.View {
         splashProgressbar.visibility = View.INVISIBLE
     }
 
-    override fun showMessage(message: Int) {
-        Snackbar.make(splashLayout, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun showMessage(message: String) {
-        Snackbar.make(splashLayout, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun showErrorMessage(err: Int) {
-        val snackbar: Snackbar = Snackbar.make(splashLayout, err, Snackbar.LENGTH_SHORT)
-        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
-        snackbar.show()    }
-
-    override fun showErrorMessage(err: String) {
-        val snackbar: Snackbar = Snackbar.make(splashLayout, err, Snackbar.LENGTH_SHORT)
-        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
-        snackbar.show()
+    override fun showMessage(message: Message, err: Boolean) {
+        val snackbar: Snackbar? = when(message){
+            Message.INTERNET_ERROR -> Snackbar.make(splashLayout, R.string.internet_error, Snackbar.LENGTH_SHORT)
+            else -> null
+        }
+        if (err) snackbar?.view?.setBackgroundColor(resources.getColor(R.color.errorColor))
+        snackbar?.show()
     }
 
     override fun navigateToLoginActivity() {

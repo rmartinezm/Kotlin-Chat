@@ -8,6 +8,7 @@ import android.view.View
 import mx.com.codewithrob.chat.R
 import mx.com.codewithrob.chat.interfaces.Login
 import kotlinx.android.synthetic.main.activity_login.*
+import mx.com.codewithrob.chat.model.enums.Message
 import mx.com.codewithrob.chat.presenter.LoginPresenterImpl
 
 class LoginActivity : AppCompatActivity(), Login.View {
@@ -34,29 +35,20 @@ class LoginActivity : AppCompatActivity(), Login.View {
         return this
     }
 
-    override fun showMessage(message: Int) {
-        Snackbar.make(loginLayout, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun showMessage(message: String) {
-        Snackbar.make(loginLayout, message, Snackbar.LENGTH_SHORT).show()
-    }
-
     override fun navigateToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
-    override fun showErrorMessage(err: Int) {
-        val snackbar: Snackbar = Snackbar.make(loginLayout, err, Snackbar.LENGTH_SHORT)
-        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
-        snackbar.show()
-    }
-
-    override fun showErrorMessage(err: String) {
-        val snackbar: Snackbar = Snackbar.make(loginLayout, err, Snackbar.LENGTH_SHORT)
-        snackbar.view.setBackgroundColor(resources.getColor(R.color.errorColor))
-        snackbar.show()
+    override fun showMessage(message: Message, err: Boolean) {
+        val snackbar: Snackbar? = when(message){
+            Message.LOGIN_SUCCESS -> Snackbar.make(loginLayout, R.string.login_success, Snackbar.LENGTH_SHORT)
+            Message.LOGIN_ERROR -> Snackbar.make(loginLayout, R.string.login_error, Snackbar.LENGTH_SHORT)
+            Message.LOGIN_CANCEL -> Snackbar.make(loginLayout, R.string.login_cancel, Snackbar.LENGTH_SHORT)
+            else -> null
+        }
+        if (err) snackbar?.view?.setBackgroundColor(resources.getColor(R.color.errorColor))
+        snackbar?.show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -17,13 +17,13 @@ class LoginInteractorImpl(private val presenter: Login.Presenter) : Login.Intera
 
     private val valueEventListener = object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot?) {
-            if (dataSnapshot!!.exists()) presenter.loginSuccessfull()
+            if (dataSnapshot!!.exists()) presenter.loginSuccess()
             else {
                 val currentUser = firebaseAuth.currentUser!!
                 val user = User(currentUser.uid,
                         currentUser.displayName!!, currentUser.photoUrl.toString())
                 firebaseDatabaseUsers.child(currentUser.uid).setValue(user).addOnCompleteListener({
-                    presenter.loginSuccessfull()
+                    presenter.loginSuccess()
                 })
             }
         }
@@ -37,7 +37,7 @@ class LoginInteractorImpl(private val presenter: Login.Presenter) : Login.Intera
             if ( task.isSuccessful ) {
                 val id : String = firebaseAuth.currentUser!!.uid
                 firebaseDatabaseUsers.child(id).addListenerForSingleValueEvent(valueEventListener)
-            } else presenter.loginError(task.exception?.message!!)
+            } else presenter.loginError(task.exception?.message)
         })
     }
 

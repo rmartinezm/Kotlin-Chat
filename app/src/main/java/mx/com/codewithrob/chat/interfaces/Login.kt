@@ -15,8 +15,8 @@ interface Login {
     interface Presenter {
         fun initialiceFacebookButton(loginFacebookButton: LoginButton)
         fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
-        fun loginSuccessfull()
-        fun loginError(err: String)
+        fun loginSuccess()
+        fun loginError(err: String?)
     }
 
     interface Interactor {

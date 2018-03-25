@@ -7,6 +7,5 @@ class SplashScreenInteractorImpl(presenter: SplashScreen.Presenter) : SplashScre
 
     override fun isLogged(): Boolean {
         return FirebaseAuth.getInstance().currentUser != null
-
     }
 }
