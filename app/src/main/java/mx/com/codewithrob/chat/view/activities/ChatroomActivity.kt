@@ -21,11 +21,15 @@ class ChatroomActivity : AppCompatActivity(), Chatroom.View {
         presenter = ChatroomPresenterImpl(this)
 
         presenter.putChatMessages(intent.extras.getString("channnel", null))
+        sendButton.setOnClickListener { presenter.sendMessage(etMessageInput.text.toString()) }
     }
 
     override fun showMessage(message: Message, err: Boolean) {
         val snackbar: Snackbar? =  when(message){
-            Message.INTERNET_ERROR -> Snackbar.make(chatroomLayout, R.string.internet_error, Snackbar.LENGTH_SHORT)
+            Message.INTERNET_ERROR ->
+                Snackbar.make(chatroomLayout, R.string.internet_error, Snackbar.LENGTH_SHORT)
+            Message.DATABASE_ERROR ->
+                Snackbar.make(chatroomLayout, R.string.database_error, Snackbar.LENGTH_SHORT)
             else -> null
         }
         if (err) snackbar?.view?.setBackgroundColor(resources.getColor(R.color.errorColor))

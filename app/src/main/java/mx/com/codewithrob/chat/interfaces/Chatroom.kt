@@ -21,7 +21,7 @@ interface Chatroom {
     interface Interactor {
         fun loadCurrentUser()
         fun loadChatMessages(channel: String?, callback: CallbackMessagesListLoaded)
-        fun saveMessage(message: String, callback: CallbackDataSaved)
+        fun saveMessage(message: ChatMessage, callback: CallbackDataSaved)
     }
 
     interface CallbackMessagesListLoaded {
@@ -30,8 +30,7 @@ interface Chatroom {
     }
 
     interface CallbackDataSaved {
-        fun onSuccess()
-        fun onError(err: String?)
+        fun onComplete()
     }
 
 }

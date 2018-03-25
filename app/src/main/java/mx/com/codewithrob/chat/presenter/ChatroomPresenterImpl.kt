@@ -5,13 +5,26 @@ import mx.com.codewithrob.chat.model.clases.ChatMessage
 import mx.com.codewithrob.chat.model.clases.User
 import mx.com.codewithrob.chat.model.enums.Message
 import mx.com.codewithrob.chat.model.interactor.ChatroomInteractorImpl
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class ChatroomPresenterImpl(private val view: Chatroom.View) : Chatroom.Presenter {
 
 
     private val interactor: Chatroom.Interactor
     private var channel: String? = null
-    private var user : User? = null
+    private var user: User? = null
+
+    private val MESSAGE: String = "message"
+    private val PHOTO: String = "photo"
+    private val DATE_FORMAT = "dd/MM/yyyy hh:mm:ss"
+
+    private val dataSavedCallback = object: Chatroom.CallbackDataSaved {
+        override fun onComplete() {
+            view.showMessage(Message.DATABASE_ERROR)
+        }
+    }
 
     init {
         interactor = ChatroomInteractorImpl(this)
@@ -38,7 +51,18 @@ class ChatroomPresenterImpl(private val view: Chatroom.View) : Chatroom.Presente
     }
 
     override fun sendMessage(message: String) {
-        TODO("not implemented")
+        if(!message.trim().isEmpty()) {
+            val date = SimpleDateFormat(DATE_FORMAT, Locale.US).format(Calendar.getInstance().time)
+            val chatMessage = ChatMessage(
+                    user!!.username,
+                    user!!.photoURL,
+                    MESSAGE,
+                    message.trim(),
+                    date.split(" ")[0],
+                    date.split(" ")[1]
+            )
+            interactor.saveMessage(chatMessage, dataSavedCallback)
+        }
     }
 
 }
