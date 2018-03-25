@@ -13,6 +13,7 @@ interface Chatroom {
     }
 
     interface Presenter {
+        fun getUser() : User?
         fun updateUser(user: User?)
         fun putChatMessages(channel: String?)
         fun sendMessage(message: String)

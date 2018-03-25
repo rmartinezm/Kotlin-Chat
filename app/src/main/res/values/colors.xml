@@ -5,5 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="errorColor">#FC6969</color>
     <color name="facebookColorPrimaryDark">#3B5998</color>
+    <color name="ownMessageColor">#34a3c6</color>
+    <color name="messageReceivedColor">#508bf4</color>
     <color name="white">#FFFFFF</color>
 </resources>

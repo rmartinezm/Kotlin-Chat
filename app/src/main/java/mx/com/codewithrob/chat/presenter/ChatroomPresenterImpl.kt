@@ -11,7 +11,6 @@ import java.util.Locale
 
 class ChatroomPresenterImpl(private val view: Chatroom.View) : Chatroom.Presenter {
 
-
     private val interactor: Chatroom.Interactor
     private var channel: String? = null
     private var user: User? = null
@@ -31,9 +30,9 @@ class ChatroomPresenterImpl(private val view: Chatroom.View) : Chatroom.Presente
         interactor.loadCurrentUser()
     }
 
-    override fun updateUser(user: User?) {
-        this.user = user
-    }
+    override fun getUser(): User? = user
+
+    override fun updateUser(user: User?) { this.user = user }
 
     override fun putChatMessages(channel: String?) {
         view.showProgressBar()

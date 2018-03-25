@@ -3,6 +3,7 @@ package mx.com.codewithrob.chat.view.activities
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import mx.com.codewithrob.chat.R
 import mx.com.codewithrob.chat.interfaces.Chatroom
@@ -10,6 +11,7 @@ import mx.com.codewithrob.chat.model.enums.Message
 import kotlinx.android.synthetic.main.activity_chatroom.*
 import mx.com.codewithrob.chat.model.clases.ChatMessage
 import mx.com.codewithrob.chat.presenter.ChatroomPresenterImpl
+import mx.com.codewithrob.chat.view.adapters.MessageAdapter
 
 class ChatroomActivity : AppCompatActivity(), Chatroom.View {
 
@@ -37,7 +39,8 @@ class ChatroomActivity : AppCompatActivity(), Chatroom.View {
     }
 
     override fun updateMessagesList(list: List<ChatMessage>) {
-        //TODO("not implemented")
+        rvMessages.adapter = MessageAdapter(list, this, presenter.getUser()!!)
+        rvMessages.layoutManager = LinearLayoutManager(this)
     }
 
     override fun addNewMessage(message: ChatMessage) {
